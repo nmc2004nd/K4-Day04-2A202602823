@@ -84,13 +84,20 @@ def run_model_tool_loop(
     tools: list[dict[str, Any]],
     model: str | None,
     max_tool_rounds: int,
+    initial_tool_choice: Any | None = None,
 ) -> dict[str, Any]:
     working_messages = list(messages)
     rounds: list[dict[str, Any]] = []
     all_tool_events: list[dict[str, Any]] = []
 
     for round_index in range(1, max_tool_rounds + 1):
-        response = provider.complete(working_messages, tools, model=model, temperature=0.0)
+        response = provider.complete(
+            working_messages,
+            tools,
+            model=model,
+            temperature=0.0,
+            tool_choice=initial_tool_choice if round_index == 1 else None,
+        )
         calls = response.tool_calls
         round_record: dict[str, Any] = {
             "round": round_index,
