@@ -1,5 +1,5 @@
 {
-  "dataset_id": "day04_v3_helpdesk_group",
+  "dataset_id": "day04_v3_helpdesk_bonus_software_catalog",
   "dataset_role": "group",
   "description": "10 original group cases for the team-built approved_software_catalog tool: 6 single-turn and 4 multi-turn.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
