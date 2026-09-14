@@ -1,1 +1,2 @@
 version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,metric_before,metric_after,run_file
+v1,MinhTam,artifacts/system_prompt.md,v1+pf96b868255fc+t86e19195220e,f96b868255fc,86e19195220e,"H04 and M04 called inspect_device with an employee ID after the correct lookup_user call","Explicit identifier routing and noting that lookup_user already returns assigned assets will make H04 route only to lookup_user while preserving H18 and M04",targeted_H04_H18_M04_pass_rate,0.3333,1.0,runs/v1_B_base_openai_20260914T190423956798.json

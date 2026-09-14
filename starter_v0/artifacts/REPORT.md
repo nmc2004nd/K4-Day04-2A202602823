@@ -45,7 +45,7 @@ total_cases`, và tool result error đã được review thủ công.
 | Version | Prompt/tool change | Hypothesis | Metric | Before | After | Run file |
 |---|---|---|---|---:|---:|---|
 | v0 | baseline |  |  |  |  |  |
-| v1 |  |  |  |  |  |  |
+| v1 | Added explicit employee/asset/shared-service routing and limited device inspection to explicit asset IDs | `lookup_user` already returns assigned assets, so clearer identifier boundaries should make H04 use only `lookup_user` without regressing H18 or M04 | Targeted H04/H18/M04 pass rate | 0.3333 | 1.0 | `runs/v1_B_base_openai_20260914T190423956798.json` |
 | v2 |  |  |  |  |  |  |
 | v3 |  |  |  |  |  |  |
 
@@ -53,7 +53,7 @@ total_cases`, và tool result error đã được review thủ công.
 
 | Case ID | Failure type | Actual calls | What failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| H04_user_routing | wrong_tool | `lookup_user(employee_id="EMP-1003")`; extra `inspect_device(asset_id="EMP-1003")` | The model selected the required directory tool but also treated an employee ID as an asset ID when asked for assigned devices. | Clarified that `lookup_user` returns assigned asset IDs, an `EMP-*` value is never an asset ID, and `inspect_device` requires an explicitly supplied asset ID plus an inspection request. H04, H18, and M04 all pass in the final v1 run. |
 
 ## B3. Team eval cases
 
