@@ -159,10 +159,10 @@ mà không làm regression H18 và M04.
 Lệnh chạy eval từng version:
 
 ```bash
-python run_eval.py --provider openrouter --version v1 --suite base --eval-cases data/eval_base.json
-python run_eval.py --provider openrouter --version v2 --suite base --eval-cases data/eval_base.json
-python run_eval.py --provider openrouter --version v3 --suite base --eval-cases data/eval_base.json
-python run_eval.py --provider openrouter --version v4 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openai --version v1 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openai --version v2 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openai --version v3 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openai --version v4 --suite base --eval-cases data/eval_base.json
 ```
 
 ### Bước 4 — Merge và chỉnh prompt cuối
@@ -404,31 +404,31 @@ Demo UI cần có ít nhất:
 Base final:
 
 ```bash
-python run_eval.py --provider openrouter --version v4 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openai --version v4 --suite base --eval-cases data/eval_base.json
 ```
 
 Group/core team eval:
 
 ```bash
-python run_eval.py --provider openrouter --version v4 --suite group --eval-cases data/eval_group.json
+python run_eval.py --provider openai --version v4 --suite group --eval-cases data/eval_group.json
 ```
 
 Bonus tool eval:
 
 ```bash
-python run_eval.py --provider openrouter --version v4 --suite group --eval-cases data/eval_bonus_tool.json
+python run_eval.py --provider openai --version v4 --suite group --eval-cases data/eval_bonus_tool.json
 ```
 
 Extension:
 
 ```bash
-python run_eval.py --provider openrouter --version v4 --suite extension --eval-cases data/eval_helpdesk_extension.json
+python run_eval.py --provider openai --version v4 --suite extension --eval-cases data/eval_helpdesk_extension.json
 ```
 
 Adversarial:
 
 ```bash
-python run_eval.py --provider openrouter --version v4 --suite adversarial --eval-cases data/eval_adversarial.json
+python run_eval.py --provider openai --version v4 --suite adversarial --eval-cases data/eval_adversarial.json
 ```
 
 Một run chỉ được dùng làm evidence khi:

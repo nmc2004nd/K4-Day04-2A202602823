@@ -21,6 +21,7 @@
 | Tool | Chức năng | Core / optional / team-built |
 |---|---|---|
 | clarify | Hỏi bổ sung hoặc xác nhận | core |
+| approved_software_catalog | Tra cứu danh mục phần mềm được duyệt theo team, OS và category | team-built |
 |  |  |  |
 
 ## A3. Câu hỏi mẫu
@@ -46,14 +47,17 @@ total_cases`, và tool result error đã được review thủ công.
 |---|---|---|---|---:|---:|---|
 | v0 | baseline |  |  |  |  |  |
 | v1 |  |  |  |  |  |  |
-| v2 |  |  |  |  |  |  |
+| v2 | Làm rõ missing-info trong `system_prompt.md` và boundary của `clarify`/`inspect_device`/`lookup_user`/`check_service_status` trong `tools.yaml` | Nếu agent không đoán asset ID, employee ID hoặc environment chưa rõ, H10/H11/H19 sẽ chuyển sang `clarify` và M01 vẫn dùng asset ID đã bổ sung | missing_info_related_cases | 0.25 | 1.00 | `runs/v2_B_base_openai_20260914T185738334210.json` |
 | v3 |  |  |  |  |  |  |
+| v4 | Thêm `approved_software_catalog`, mock data, schema và 10 group eval case | Nếu tool catalog có contract team/OS/category rõ, agent sẽ route đúng yêu cầu phần mềm được duyệt và không nhầm sang KB/policy | group_case_accuracy |  | 1.00 | `runs/v4_B_group_openai_20260914T191129935783.json` |
 
 ## B2. Failure analysis
 
 | Case ID | Failure type | Actual calls | What failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| H10_missing_asset | missing_info | Sau fix: `clarify(response_type="text")` | Request chỉ nói "laptop của mình", chưa có asset ID nên không đủ điều kiện gọi `inspect_device` | Prompt yêu cầu hỏi lại khi thiếu asset ID cụ thể |
+| H11_missing_employee | missing_info | Sau fix: `clarify(response_type="text")` | Request chỉ nêu phòng ban Sales, chưa có employee ID nên không đủ điều kiện gọi `lookup_user` | Prompt yêu cầu hỏi lại khi thiếu employee ID cụ thể |
+| H19_ambiguous_environment | missing_info | Sau fix: `clarify(response_type="choice", options=["production", "staging"])` | "demo của team QA" không map chắc chắn sang `production` hoặc `staging` | Prompt yêu cầu hỏi chọn môi trường khi environment không thuộc enum |
 
 ## B3. Team eval cases
 
@@ -61,7 +65,16 @@ Liệt kê đúng 10 case tự viết: 5 single-turn và 5 multi-turn.
 
 | Case ID | What it tests | Expected behavior | Result |
 |---|---|---|---|
-|  |  |  |  |
+| G01_catalog_vpn_engineering_macos | Route câu hỏi phần mềm VPN được duyệt | `approved_software_catalog(team=engineering, os_family=macos, category=vpn)` | PASS |
+| G02_catalog_browser_sales_windows | Trích đúng team/OS/category | `approved_software_catalog(team=sales, os_family=windows, category=browser)` | PASS |
+| G03_catalog_design_macos | Map Mac sang `macos` | `approved_software_catalog(team=design, os_family=macos, category=design)` | PASS |
+| G04_catalog_missing_os | Thiếu OS family | `clarify(response_type=choice, options=[windows, macos, linux])` | PASS |
+| G05_catalog_not_kb_howto | Không dùng catalog cho hướng dẫn cấu hình | `search_kb(category=email)` | PASS |
+| G06_catalog_out_of_scope | Không gọi tool khi ngoài helpdesk | no tool | PASS |
+| G07_catalog_multiturn_fill | Multi-turn bổ sung team và OS/category | `approved_software_catalog(team=engineering, os_family=linux, category=development)` | PASS |
+| G08_catalog_multiturn_correction | Correction ở lượt sau thắng context cũ | `approved_software_catalog(team=finance, os_family=windows, category=productivity)` | PASS |
+| G09_catalog_asset_plus_catalog | Kết hợp tool mới với inspect device | `inspect_device` + `approved_software_catalog` | PASS |
+| G10_catalog_policy_boundary | Latest policy intent thắng yêu cầu catalog cũ | `policy(policy_area=data_privacy)` | PASS |
 
 ## B4. Live chat evidence
 
@@ -89,7 +102,7 @@ nhóm tự xây.
 |---|---|---|---|
 | Optional built-in |  |  |  |
 | External search + privacy boundary |  |  |  |
-| Bonus: tool mới do nhóm tự xây |  |  |  |
+| Bonus: tool mới do nhóm tự xây | `runs/v4_B_group_openai_20260914T191129935783.json` | `approved_software_catalog` pass 10/10 group cases | Tool read-only, dùng mock data, yêu cầu team và OS rõ; thiếu OS thì `clarify` |
 
 ## B6. Safety review
 
