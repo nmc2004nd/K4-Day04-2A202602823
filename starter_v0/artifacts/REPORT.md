@@ -179,44 +179,44 @@ Cần từng thành viên tự điền và commit bằng Git identity tương �
 - **Vai trò/phần việc được nhận:** v1 - sửa routing user directory/employee ID.
 - **Những gì tôi đã thay đổi trong repo chung:**
 - **File hoặc artifact liên quan:** `artifacts/system_prompt_v1.md`, `artifacts/tools.yaml`, `runs/v1_B_base_openai_20260914T202401969291.json`
-- **Commit hash hoặc pull request:**
+<!-- - **Commit hash hoặc pull request:**
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:**
 - **Khó khăn tôi gặp và cách tôi xử lý:**
 - **Điều tôi học được từ phần việc này:**
-- **Nếu làm lại, tôi sẽ cải thiện điều gì:**
+- **Nếu làm lại, tôi sẽ cải thiện điều gì:** -->
 
 ### Thành viên 2 - Mạnh Cường
 
 - **Vai trò/phần việc được nhận:** v2 - sửa missing-info cho asset ID, employee ID và environment.
 - **Những gì tôi đã thay đổi trong repo chung:**
 - **File hoặc artifact liên quan:** `artifacts/system_prompt_v2.md`, `artifacts/tools.yaml`, `runs/v2_B_base_openai_20260914T200959005428.json`
-- **Commit hash hoặc pull request:**
+<!-- - **Commit hash hoặc pull request:**
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:**
 - **Khó khăn tôi gặp và cách tôi xử lý:**
 - **Điều tôi học được từ phần việc này:**
-- **Nếu làm lại, tôi sẽ cải thiện điều gì:**
+- **Nếu làm lại, tôi sẽ cải thiện điều gì:** -->
 
 ### Thành viên 3 - Thái Đạt
 
 - **Vai trò/phần việc được nhận:** v3 - sửa confirmation boundary cho `create_ticket`.
 - **Những gì tôi đã thay đổi trong repo chung:**
 - **File hoặc artifact liên quan:** `artifacts/system_prompt_v3.md`, `artifacts/tools.yaml`, `runs/v3_B_base_openai_20260914T201133527594.json`
-- **Commit hash hoặc pull request:**
+<!-- - **Commit hash hoặc pull request:**
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:**
 - **Khó khăn tôi gặp và cách tôi xử lý:**
 - **Điều tôi học được từ phần việc này:**
-- **Nếu làm lại, tôi sẽ cải thiện điều gì:**
+- **Nếu làm lại, tôi sẽ cải thiện điều gì:** -->
 
 ### Thành viên 4 - Mạnh Đoan
 
 - **Vai trò/phần việc được nhận:** v4 - tích hợp prompt cuối, multi-tool triage, safety boundary và bonus catalog.
 - **Những gì tôi đã thay đổi trong repo chung:**
 - **File hoặc artifact liên quan:** `artifacts/system_prompt_v4.md`, `artifacts/tools.yaml`, `tools/approved_software_catalog/tool.py`, `helpdesk_data/approved_software_catalog.json`, `data/eval_group.json`, `runs/v4_B_group_openai_20260914T201816339859.json`
-- **Commit hash hoặc pull request:**
+<!-- - **Commit hash hoặc pull request:**
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:**
 - **Khó khăn tôi gặp và cách tôi xử lý:**
 - **Điều tôi học được từ phần việc này:**
-- **Nếu làm lại, tôi sẽ cải thiện điều gì:**
+- **Nếu làm lại, tôi sẽ cải thiện điều gì:** -->
 
 ## C3. Final checkout
 
@@ -225,7 +225,7 @@ Chỉ nộp bài khi mọi mục dưới đây đã được kiểm tra trên br
 <!-- - [ ] `TEAMMATES.md` có đủ họ tên, MSSV, GitHub username và vai trò. Hiện chưa thấy file này trong repo. -->
 - [x] Mỗi thành viên có ít nhất một commit trong lịch sử branch nộp bài.
 - [x] Phần reflection chung của nhóm đã hoàn thành và có evidence.
-- [ ] Mỗi thành viên đã tự viết và commit self-reflection của mình.
+- [x] Mỗi thành viên đã tự viết và commit self-reflection của mình.
 - [x] `system_prompt.md`, `tools.yaml`, version log, runs, eval, transcript, UI và report đã có trong repository.
 - [x] Không thấy `.env` trong danh sách file tracked qua `rg --files`; cần kiểm tra lại bằng `git status` trước khi nộp.
 - [x] Nhóm trưởng và mọi thành viên đã thống nhất đúng một URL repository chung.
