@@ -1,0 +1,115 @@
+{
+  "snapshot_at": "2026-09-14T09:00:00+07:00",
+  "catalog": [
+    {
+      "software_id": "SW-VPN-GLOBAL",
+      "name": "Northstar VPN Client",
+      "category": "vpn",
+      "status": "approved",
+      "teams": ["all"],
+      "os_families": ["windows", "macos"],
+      "approved_versions": ["5.2.1", "5.2.2"],
+      "license": "enterprise",
+      "notes": "Standard VPN client for employee laptops."
+    },
+    {
+      "software_id": "SW-WIREGUARD-LINUX",
+      "name": "WireGuard Managed Profile",
+      "category": "vpn",
+      "status": "approved",
+      "teams": ["engineering", "support"],
+      "os_families": ["linux"],
+      "approved_versions": ["1.0.20210914"],
+      "license": "managed_open_source",
+      "notes": "Approved for Linux engineering and support endpoints."
+    },
+    {
+      "software_id": "SW-O365",
+      "name": "Microsoft 365 Apps",
+      "category": "productivity",
+      "status": "approved",
+      "teams": ["all"],
+      "os_families": ["windows", "macos", "ios"],
+      "approved_versions": ["current_channel"],
+      "license": "enterprise",
+      "notes": "Default productivity suite."
+    },
+    {
+      "software_id": "SW-SLACK",
+      "name": "Slack Enterprise Grid",
+      "category": "communication",
+      "status": "approved",
+      "teams": ["all"],
+      "os_families": ["windows", "macos", "linux", "ios"],
+      "approved_versions": ["latest_managed"],
+      "license": "enterprise",
+      "notes": "Use managed SSO workspace only."
+    },
+    {
+      "software_id": "SW-CHROME",
+      "name": "Google Chrome Enterprise",
+      "category": "browser",
+      "status": "approved",
+      "teams": ["all"],
+      "os_families": ["windows", "macos", "linux"],
+      "approved_versions": ["stable_managed"],
+      "license": "free_managed",
+      "notes": "Browser updates are managed by endpoint policy."
+    },
+    {
+      "software_id": "SW-FIGMA",
+      "name": "Figma Desktop",
+      "category": "design",
+      "status": "approved",
+      "teams": ["design", "product"],
+      "os_families": ["windows", "macos"],
+      "approved_versions": ["latest_managed"],
+      "license": "named_seat",
+      "notes": "Approved for design collaboration with SSO."
+    },
+    {
+      "software_id": "SW-VSCODE",
+      "name": "Visual Studio Code",
+      "category": "development",
+      "status": "approved",
+      "teams": ["engineering", "support"],
+      "os_families": ["windows", "macos", "linux"],
+      "approved_versions": ["1.92", "1.93"],
+      "license": "free_managed",
+      "notes": "Extensions must come from the approved marketplace policy."
+    },
+    {
+      "software_id": "SW-DOCKER",
+      "name": "Docker Desktop",
+      "category": "development",
+      "status": "approved",
+      "teams": ["engineering"],
+      "os_families": ["windows", "macos"],
+      "approved_versions": ["4.33"],
+      "license": "enterprise",
+      "notes": "Requires endpoint virtualization policy compliance."
+    },
+    {
+      "software_id": "SW-SENTINEL",
+      "name": "SentinelOne Agent",
+      "category": "security",
+      "status": "approved",
+      "teams": ["all"],
+      "os_families": ["windows", "macos", "linux"],
+      "approved_versions": ["23.4"],
+      "license": "enterprise",
+      "notes": "Mandatory endpoint protection."
+    },
+    {
+      "software_id": "SW-POWERBI",
+      "name": "Power BI Desktop",
+      "category": "data",
+      "status": "approved",
+      "teams": ["finance", "operations", "sales"],
+      "os_families": ["windows"],
+      "approved_versions": ["2.132"],
+      "license": "named_seat",
+      "notes": "Approved for reporting teams on managed Windows devices."
+    }
+  ]
+}
