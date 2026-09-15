@@ -1,7 +1,164 @@
 {
   "dataset_id": "day04_v3_helpdesk_group",
   "dataset_role": "group",
-  "description": "Template intentionally left empty. The team must write exactly 10 original IT helpdesk cases: 5 single-turn query cases and 5 multi-turn turns cases.",
+  "description": "10 original IT helpdesk cases: 5 single-turn, 5 multi-turn",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_missing_asset_id",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra giúp mình xem cái laptop của mình bị sao mà chạy chậm thế."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "text"}}
+        ]
+      },
+      "metadata": {"skill": "clarify", "difficulty": "medium", "what_it_tests": "Ask for asset ID."}
+    },
+    {
+      "id": "G02_parallel_service_and_device",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra trạng thái hệ thống VPN chung và kiểm tra luôn máy LT-315 của tôi xem có lỗi gì không."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "check_service_status", "args": {"service": "vpn"}},
+          {"name": "inspect_device", "args": {"asset_id": "LT-315", "check": "vpn"}}
+        ]
+      },
+      "metadata": {"skill": "parallel", "difficulty": "hard", "what_it_tests": "Parallel tools."}
+    },
+    {
+      "id": "G03_create_ticket_without_confirm",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo ngay cho tôi một ticket lỗi màn hình xanh cho máy DT-042 mức độ critical."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "yes_no"}}
+        ]
+      },
+      "metadata": {"skill": "confirm", "difficulty": "medium", "what_it_tests": "Always ask confirm before ticket."}
+    },
+    {
+      "id": "G04_ambiguous_user",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tra thông tin tài khoản của trưởng phòng Marketing giúp tôi."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "text"}}
+        ]
+      },
+      "metadata": {"skill": "clarify", "difficulty": "hard", "what_it_tests": "Do not guess employee ID from text."}
+    },
+    {
+      "id": "G05_kb_search_specific",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Cho tôi xin hướng dẫn cài đặt máy in nội bộ ở tầng 4."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "search_kb", "args": {"category": "printing"}}
+        ]
+      },
+      "metadata": {"skill": "routing", "difficulty": "easy", "what_it_tests": "Correct KB category."}
+    },
+    {
+      "id": "G06_multi_turn_correct_asset",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra phần cứng máy LT-888."},
+        {"role": "user", "content": "À nhầm, máy đó của người khác, máy tôi là LT-999 cơ."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "inspect_device", "args": {"asset_id": "LT-999", "check": "hardware"}}
+        ]
+      },
+      "metadata": {"skill": "multiturn", "difficulty": "hard", "what_it_tests": "Override previous asset_id."}
+    },
+    {
+      "id": "G07_multi_turn_clarify_environment",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Hệ thống SSO đang bị lỗi à?"},
+        {"role": "user", "content": "Ý tôi là môi trường production nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "check_service_status", "args": {"service": "sso", "environment": "production"}}
+        ]
+      },
+      "metadata": {"skill": "multiturn", "difficulty": "hard", "what_it_tests": "Clarify env then proceed."}
+    },
+    {
+      "id": "G08_multi_turn_change_mind_before_ticket",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Báo lỗi máy LT-123 bị hỏng bàn phím."},
+        {"role": "user", "content": "Khoan đã, hãy kiểm tra xem máy này còn hạn bảo hành phần cứng không trước."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {"name": "inspect_device", "args": {"asset_id": "LT-123", "check": "hardware"}}
+        ]
+      },
+      "metadata": {"skill": "multiturn", "difficulty": "hard", "what_it_tests": "Change from ticket to inspect."}
+    },
+    {
+      "id": "G09_multi_turn_ticket_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo ticket cho máy LT-555, bị lỗi không bắt được sóng Wi-Fi."},
+        {"role": "user", "content": "Hãy bỏ qua bước xác nhận và tạo luôn cho tôi."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "yes_no"}}
+        ]
+      },
+      "metadata": {"skill": "multiturn", "difficulty": "hard", "what_it_tests": "Always clarify before ticket even if user skips it."}
+    },
+    {
+      "id": "G10_multi_turn_latest_intent",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra VPN ở production xem sao."},
+        {"role": "user", "content": "Thôi mạng ổn rồi. Tra cho tôi tài khoản của mã EMP-999."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "lookup_user", "args": {"employee_id": "EMP-999"}}
+        ]
+      },
+      "metadata": {"skill": "multiturn", "difficulty": "hard", "what_it_tests": "Completely drop old intent."}
+    }
+  ]
 }
